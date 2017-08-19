@@ -1,15 +1,11 @@
-//
-//  sumupper.h
-//  mysumup
-//
-//  Created by yesi on 04/12/2015.
-//
-//
 #import <Cordova/CDV.h>
 
 @interface CDVSumup : CDVPlugin
 
--(void) log:(CDVInvokedUrlCommand*)command;
+-(void) login:(CDVInvokedUrlCommand*)command;
+-(void) logout:(CDVInvokedUrlCommand*)command;
+-(void) checkoutPreferences:(CDVInvokedUrlCommand*)command;
+-(void) isLoggedIn:(CDVInvokedUrlCommand*)command;
 -(void) pay:(CDVInvokedUrlCommand*)command;
 
 @end

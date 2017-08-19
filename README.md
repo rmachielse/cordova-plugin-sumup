@@ -1,44 +1,55 @@
-# cordova-plugin-sumup
-Cordova plugin for native acces to the sumup paiement system
+# Cordova Sumup Plugin
 
-This plugin permit interconnection beetween native sumUp SDK and hybrid mobile app (cordova/phonegap).
+Cordova plugin for a native integration with the [SumUp iOS SDK](https://github.com/sumup/sumup-ios-sdk).
 
-<b>Compatibility :</b>
-- IOS
-- ANDROID
+## Installation
 
-<b>Installation</b>
+```
+cordova plugin add https://github.com/rmachielse/cordova-plugin-sumup --variable SUMUP_API_KEY=YOUR_AFFILIATION_KEY
+```
 
-<pre>
-$ cordova plugin add https://github.com/yesiman/ekoal.cdv.sumup --variable SUMUP_API_KEY=YOUR_AFFILIATION_KEY
-</pre>
+You can generate your affiliation key in your merchant account on SumUp website in the developer menu.
 
-You can generate your affiliation key in your merchant account on SumUp website in the developper menu.
+## Usage
 
-<b>JS CODE</b>
+### login
 
-<pre>
-  var Sumup = {
-    pay: function (success, failure, amount, currencycode) {
-        cordova.exec(success, failure, "Sumup", "pay", [amount, currencycode]);
-    },
-    log: function (success, failure) {
-        cordova.exec(success, failure, "Sumup", "log", []);
-    }
-    //LOG function missing (wait a little)
-  };
-  function nativePluginResultHandler(result) {
-      if (result === 1);
-      {
-          //PAYMENT OK
-      }
-  }
-  function nativePluginErrorHandler(error) {
-      alert("ERROR: \r\n" + error);
-  }
-  
-  //METHODS
-  Sumup.log(nativePluginResultHandler, nativePluginErrorHandler);
-  //OR
-  Sumup.pay(nativePluginResultHandler, nativePluginErrorHandler, 10.00, "EUR");
-</pre>
+```javascript
+cordova.exec(function success() {}, function failure() {}, 'Sumup', 'login');
+```
+
+Calling this method will show a modal with a login prompt.
+The `success` callback is fired when the user is successfully logged in.
+The `failure` callback will be triggered when the user presses the "cancel" button.
+
+### logout
+
+```javascript
+cordova.exec(function success() {}, function failure() {}, 'Sumup', 'logout');
+```
+
+Calling this method will logout the user. Nothing is shown to the user. It will fail if the user is not logged in yet.
+
+### isLoggedIn
+
+```javascript
+cordova.exec(function success(isLoggedIn) {}, null, 'Sumup', 'isLoggedIn');
+```
+
+This method will always trigger the `success` callback with a boolean that indicates if the user is logged in to SumUp.
+
+### checkoutPreferences
+
+```javascript
+cordova.exec(function success() {}, function failure() {}, 'Sumup', 'checkoutPreferences');
+```
+
+This method will show the checkout preferences modal if the user is logged in to SumUp. It will trigger the `failure` callback if the user is not logged in. It will trigger the `success` callback when the user has pressed "done".
+
+### pay
+
+```javascript
+cordova.exec(function success(transactionCode) {}, function failure(code) {}, 'Sumup', 'pay', [total, title, foreignTransactionID]);
+```
+
+This method opens a modal with a new payment. If the payment is successfully finished, the `success` callback will be triggered with the `transactionCode` of the payment. If the payment fails, because the transaction fails or because the user is not logged in with sumup, it will trigger the `failure` callback. It is required to pass the `total` amount as a decimal string, as well as a string `title` and a string `foreignTransactionID` that can be anything.

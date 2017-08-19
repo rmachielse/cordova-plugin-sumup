@@ -33,6 +33,8 @@
     <framework src="MapKit.framework" weak="true" />
     <header-file src="src/ios/CDVSumup.h" />
     <source-file src="src/ios/CDVSumup.m" />
+    <resource-file src="src/ios/SumupSDK.embeddedframework/SumupSDK.framework/resources/SMPSharedResources.bundle" />
+    <resource-file src="src/ios/SumupSDK.embeddedframework/SumupSDK.framework/resources/YTLibResources.bundle" />
     <preference name="SUMUP_API_KEY" />
   </platform>
 </plugin>
