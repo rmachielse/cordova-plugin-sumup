@@ -1,40 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" id="cordova-plugin-sumup" version="0.0.1">
-  <name>Sumup</name>
-  <description>Cordova Sumup Plugin</description>
-  <license>Apache 2.0</license>
-  <keywords>cordova,sumup</keywords>
-  <platform name="ios">
-    <config-file target="config.xml" parent="/*">
-      <feature name="Sumup">
-        <param name="ios-package" value="CDVSumup"/>
-      </feature>
-    </config-file>
-    <config-file target="*-Info.plist" parent="NSLocationWhenInUseUsageDescription">
-      <string></string>
-    </config-file>
-    <config-file target="*-Info.plist" parent="NSBluetoothPeripheralUsageDescription">
-        <string></string>
-    </config-file>
-    <config-file target="*-Info.plist" parent="NSMicrophoneUsageDescription">
-        <string></string>
-    </config-file>
-    <config-file target="*-Info.plist" parent="NSLocationUsageDescription">
-        <string></string>
-    </config-file>
-    <config-file target="*-Info.plist" parent="SUMUP_API_KEY">
-        <string>$SUMUP_API_KEY</string>
-    </config-file>
-    <framework src="src/ios/SumupSDK.embeddedframework/SumupSDK.framework" custom="true" />
-    <framework src="src/ios/SumupSDK.embeddedframework/SumupSDK.framework/resources/SMPSharedResources.bundle" custom="true" />
-    <framework src="src/ios/SumupSDK.embeddedframework/SumupSDK.framework/resources/YTLibResources.bundle" custom="true" />
-    <framework src="AVFoundation.framework" weak="true" />
-    <framework src="Accelerate.framework"  weak="true"/>
-    <framework src="MapKit.framework" weak="true" />
-    <header-file src="src/ios/CDVSumup.h" />
-    <source-file src="src/ios/CDVSumup.m" />
-    <resource-file src="src/ios/SumupSDK.embeddedframework/SumupSDK.framework/resources/SMPSharedResources.bundle" />
-    <resource-file src="src/ios/SumupSDK.embeddedframework/SumupSDK.framework/resources/YTLibResources.bundle" />
-    <preference name="SUMUP_API_KEY" />
-  </platform>
+    <name>Sumup</name>
+    <description>Cordova Sumup Plugin</description>
+    <license>Apache 2.0</license>
+    <keywords>cordova,sumup</keywords>
+    <platform name="ios">
+        <config-file target="config.xml" parent="/*">
+            <feature name="Sumup">
+                <param name="ios-package" value="CDVSumup"/>
+            </feature>
+        </config-file>
+        <config-file target="*-Info.plist" parent="NSLocationWhenInUseUsageDescription">
+            <string>To provide a secure service, we need to know your location. Without location information, you cannot use SumUp.</string>
+        </config-file>
+        <config-file target="*-Info.plist" parent="NSBluetoothPeripheralUsageDescription">
+            <string>The app needs to connect to Bluetooth peripherals to detect the SumUp Card Terminal correctly. Please confirm with OK as you cannot use your card reader otherwise.</string>
+        </config-file>
+        <config-file target="*-Info.plist" parent="NSMicrophoneUsageDescription">
+            <string>The app needs to access the microphone of your audio jack in order for the SumUp Card Reader to be detected correctly. Please confirm with OK as you cannot use your card reader otherwise.</string>
+        </config-file>
+        <config-file target="*-Info.plist" parent="NSLocationUsageDescription">
+            <string>To provide a secure service, we need to know your location. Without location information, you cannot use SumUp.</string>
+        </config-file>
+        <config-file target="*-Info.plist" parent="SUMUP_API_KEY">
+            <string>$SUMUP_API_KEY</string>
+        </config-file>
+        <framework src="src/ios/SumupSDK.embeddedframework/SumupSDK.framework" custom="true" />
+        <framework src="src/ios/SumupSDK.embeddedframework/SumupSDK.framework/resources/SMPSharedResources.bundle" custom="true" />
+        <framework src="src/ios/SumupSDK.embeddedframework/SumupSDK.framework/resources/YTLibResources.bundle" custom="true" />
+        <framework src="AVFoundation.framework" weak="true" />
+        <framework src="Accelerate.framework"  weak="true"/>
+        <framework src="MapKit.framework" weak="true" />
+        <header-file src="src/ios/CDVSumup.h" />
+        <source-file src="src/ios/CDVSumup.m" />
+        <resource-file src="src/ios/SumupSDK.embeddedframework/SumupSDK.framework/resources/SMPSharedResources.bundle" />
+        <resource-file src="src/ios/SumupSDK.embeddedframework/SumupSDK.framework/resources/YTLibResources.bundle" />
+        <preference name="SUMUP_API_KEY" />
+    </platform>
 </plugin>
