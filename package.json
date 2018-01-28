@@ -1,0 +1,18 @@
+{
+  "name": "cordova-plugin-sumup-ios",
+  "version": "1.1.1",
+  "description": "Cordova Sumup Plugin",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rmachielse/cordova-plugin-sumup.git"
+  },
+  "author": "Richard Machielse",
+  "license": "MIT",
+  "homepage": "https://github.com/rmachielse/cordova-plugin-sumup#readme",
+  "cordova": {
+    "id": "cordova-plugin-sumup-ios",
+    "platforms": [
+      "ios"
+    ]
+  }
+}
