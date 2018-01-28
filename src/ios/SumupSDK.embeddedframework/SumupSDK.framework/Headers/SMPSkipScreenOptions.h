@@ -1,6 +1,6 @@
 //
 //  SMPSkipScreenOptions.h
-//  SumupSDK
+//  SumUpSDK
 //
 //  Created by Lukas Mollidor on 08.06.17.
 //  Copyright (c) 2017 SumUp Payments Limited. All rights reserved.
@@ -21,6 +21,6 @@ typedef NS_OPTIONS(NSUInteger, SMPSkipScreenOptions) {
      *  Skip confirmation screen (i.e. screen that would ask for a receipt) for successful transactions.
      */
     SMPSkipScreenOptionSuccess = 1 << 0,
-};
+} NS_SWIFT_NAME(SkipScreenOptions);
 
 #endif

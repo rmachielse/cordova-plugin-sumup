@@ -1,5 +1,5 @@
 #import "CDVSumup.h"
-#import <SumupSDK/SumupSDK.h>
+#import <SumUpSDK/SumUpSDK.h>
 
 @implementation CDVSumup
 
@@ -8,8 +8,8 @@
     NSDictionary* infoDict = [[NSBundle mainBundle] infoDictionary];
     NSString* apikey = [infoDict objectForKey:@"SUMUP_API_KEY"];
 
-    [SumupSDK setupWithAPIKey:apikey];
-    [SumupSDK presentLoginFromViewController:self.viewController
+    [SMPSumUpSDK setupWithAPIKey:apikey];
+    [SMPSumUpSDK presentLoginFromViewController:self.viewController
         animated:YES
         completionBlock:^(BOOL success, NSError *error) {
 
@@ -24,7 +24,7 @@
 }
 
 -(void) logout:(CDVInvokedUrlCommand *)command {
-  [SumupSDK logoutWithCompletionBlock:^(BOOL success, NSError *error) {
+  [SMPSumUpSDK logoutWithCompletionBlock:^(BOOL success, NSError *error) {
       CDVPluginResult* pluginResult = nil;
       if (success) {
           pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
@@ -36,7 +36,7 @@
 }
 
 -(void) checkoutPreferences:(CDVInvokedUrlCommand *)command {
-  [SumupSDK presentCheckoutPreferencesFromViewController:self.viewController
+  [SMPSumUpSDK presentCheckoutPreferencesFromViewController:self.viewController
       animated:YES
       completion:^(BOOL success, NSError *_Nullable error) {
 
@@ -51,7 +51,7 @@
 }
 
 -(void) isLoggedIn:(CDVInvokedUrlCommand *)command {
-  BOOL isLoggedIn = [SumupSDK isLoggedIn];
+  BOOL isLoggedIn = [SMPSumUpSDK isLoggedIn];
 
   CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:isLoggedIn];
   [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
@@ -64,13 +64,13 @@
 
     CDVPluginResult* pluginResult = nil;
     SMPCheckoutRequest *request = [SMPCheckoutRequest requestWithTotal:[NSDecimalNumber decimalNumberWithString:total] title:title
-        currencyCode:[[SumupSDK currentMerchant] currencyCode]
+        currencyCode:[[SMPSumUpSDK currentMerchant] currencyCode]
         paymentOptions:SMPPaymentOptionAny];
 
     [request setSkipScreenOptions:SMPSkipScreenOptionSuccess];
     [request setForeignTransactionID:[NSString stringWithFormat:foreignTransactionID]];
 
-    [SumupSDK checkoutWithRequest:request fromViewController:self.viewController completion:^(SMPCheckoutResult *result, NSError *error) {
+    [SMPSumUpSDK checkoutWithRequest:request fromViewController:self.viewController completion:^(SMPCheckoutResult *result, NSError *error) {
         CDVPluginResult* pluginResult = nil;
 
         if (result.success) {
@@ -82,7 +82,7 @@
         [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
     }];
 
-    if (![SumupSDK checkoutInProgress]) {
+    if (![SMPSumUpSDK checkoutInProgress]) {
         pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
         [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
     }

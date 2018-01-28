@@ -1,6 +1,6 @@
 //
 //  SMPCheckoutRequest.h
-//  SumupSDK
+//  SumUpSDK
 //
 //  Created by Lukas Mollidor on 23.01.14.
 //  Copyright (c) 2014 SumUp Payments Limited. All rights reserved.
@@ -17,21 +17,41 @@ NS_ASSUME_NONNULL_BEGIN
  *  but are likely not to be accepted during the checkout.
  */
 
+NS_SWIFT_NAME(CurrencyCodeBGN)
+extern NSString * const SMPCurrencyCodeBGN;
+NS_SWIFT_NAME(CurrencyCodeBRL)
 extern NSString * const SMPCurrencyCodeBRL;
+NS_SWIFT_NAME(CurrencyCodeCHF)
 extern NSString * const SMPCurrencyCodeCHF;
+NS_SWIFT_NAME(CurrencyCodeCZK)
+extern NSString * const SMPCurrencyCodeCZK;
+NS_SWIFT_NAME(CurrencyCodeDKK)
+extern NSString * const SMPCurrencyCodeDKK;
+NS_SWIFT_NAME(CurrencyCodeEUR)
 extern NSString * const SMPCurrencyCodeEUR;
+NS_SWIFT_NAME(CurrencyCodeGBP)
 extern NSString * const SMPCurrencyCodeGBP;
+NS_SWIFT_NAME(CurrencyCodeHUF)
+extern NSString * const SMPCurrencyCodeHUF;
+NS_SWIFT_NAME(CurrencyCodeNOK)
+extern NSString * const SMPCurrencyCodeNOK;
+NS_SWIFT_NAME(CurrencyCodePLN)
 extern NSString * const SMPCurrencyCodePLN;
+NS_SWIFT_NAME(CurrencyCodeRON)
+extern NSString * const SMPCurrencyCodeRON;
+NS_SWIFT_NAME(CurrencyCodeSEK)
 extern NSString * const SMPCurrencyCodeSEK;
+NS_SWIFT_NAME(CurrencyCodeUSD)
 extern NSString * const SMPCurrencyCodeUSD;
 
 typedef NS_OPTIONS (NSUInteger, SMPPaymentOptions) {
     SMPPaymentOptionAny = 0,
     SMPPaymentOptionCardReader = 1 << 0,
     SMPPaymentOptionMobilePayment = 1 << 1,
-};
+} NS_SWIFT_NAME(PaymentOptions);
 
 /// Encapsulates all information that is necessary during a checkout with the SumUp SDK.
+NS_SWIFT_NAME(CheckoutRequest)
 @interface SMPCheckoutRequest : NSObject
 
 /**
@@ -43,7 +63,7 @@ typedef NS_OPTIONS (NSUInteger, SMPPaymentOptions) {
  *
  *  @param totalAmount The total amount to be charged to a customer. Cannot be nil.
  *  @param title An optional title to be displayed in the merchant's history and on customer receipts.
- *  @param currencyCode Currency Code in which the total should be charged (ISO 4217 code, see SMPCurrencyCode). Cannot be nil, has to match the currency of the merchant logged in. Use [[[SumupSDK currentMerchant] currencyCode] and ensure its length is not 0.
+ *  @param currencyCode Currency Code in which the total should be charged (ISO 4217 code, see SMPCurrencyCode). Cannot be nil, has to match the currency of the merchant logged in. Use [[[SMPSumUpSDK currentMerchant] currencyCode] and ensure its length is not 0.
  *  @param paymentOptions Payment options to choose a payment type(card reader, mobile payment...)
  *
  *  @return A new request object or nil if totalAmount or currencyCode are nil.
@@ -61,7 +81,7 @@ typedef NS_OPTIONS (NSUInteger, SMPPaymentOptions) {
  *
  *  @param totalAmount The total amount to be charged to a customer. Cannot be nil.
  *  @param title An optional title to be displayed in the merchant's history and on customer receipts.
- *  @param currencyCode Currency Code in which the total should be charged (ISO 4217 code, see SMPCurrencyCode). Cannot be nil, has to match the currency of the merchant logged in. Use [[[SumupSDK currentMerchant] currencyCode] and ensure its length is not 0.
+ *  @param currencyCode Currency Code in which the total should be charged (ISO 4217 code, see SMPCurrencyCode). Cannot be nil, has to match the currency of the merchant logged in. Use [[[SMPSumUpSDK currentMerchant] currencyCode] and ensure its length is not 0.
  *
  *  @return A new request object or nil if totalAmount or currencyCode are nil.
  */
@@ -76,10 +96,10 @@ typedef NS_OPTIONS (NSUInteger, SMPPaymentOptions) {
  *  requestWithTotal:title:currencyCode:paymentOptions: or
  *  requestWithTotal:title:currencyCode:
  */
-@property (strong, nonatomic, readonly, nullable) NSDecimalNumber *totalAmount;
+@property (nonatomic, readonly, nullable) NSDecimalNumber *totalAmount;
 
 /// A title to be displayed in the merchant's history and on customer receipts.
-@property (strong, nonatomic, readonly, nullable) NSString *title;
+@property (nonatomic, readonly, nullable) NSString *title;
 
 /**
  *  Currency code in which the total should be charged (ISO 4217 code, see SMPCurrencyCode).
@@ -88,19 +108,19 @@ typedef NS_OPTIONS (NSUInteger, SMPPaymentOptions) {
  *  requestWithTotal:title:currencyCode:paymentOptions: or
  *  requestWithTotal:title:currencyCode:
  */
-@property (strong, nonatomic, readonly, nullable) NSString *currencyCode;
+@property (nonatomic, readonly, nullable) NSString *currencyCode;
 
 /// Payment options to choose a payment type
-@property (assign, nonatomic, readonly) SMPPaymentOptions paymentOptions;
+@property (nonatomic, readonly) SMPPaymentOptions paymentOptions;
 
 /**
  *  An (optional) ID to be associated with this transaction.
- *  See https://sumup.com/integration#transactionReportingAPIs
+ *  See http://docs.sumup.com/rest-api/transactions-api/#merchant-transactions
  *  on how to retrieve a transaction using this ID.
  *  This ID has to be unique in the scope of a SumUp merchant account and its sub-accounts.
  *  It must not be longer than 128 characters and can only contain printable ASCII characters.
  */
-@property (strong, nonatomic, nullable) NSString *foreignTransactionID;
+@property (nonatomic, copy, nullable) NSString *foreignTransactionID;
 
 
 /**
@@ -108,7 +128,7 @@ typedef NS_OPTIONS (NSUInteger, SMPPaymentOptions) {
  *
  *  @note Will be added to the totalAmount. Must be greater zero if passed.
  */
-@property (strong, nonatomic, nullable) NSDecimalNumber *tipAmount;
+@property (nonatomic, copy, nullable) NSDecimalNumber *tipAmount;
 
 
 /**
